@@ -15,7 +15,7 @@
     </script>
 </head>
 <body>
-    <input type = "number" id = "num">
+    <input type = "text" id = "num">
     <button onclick= "calculate(0)" name = "add">+</button>
     <button onclick = "calculate(1)" name = "minus">-</button>
     <button onclick = "calculate(2)" name = "multiplication">*</button>

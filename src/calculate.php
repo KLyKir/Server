@@ -12,21 +12,24 @@ if (!isset($_SESSION['serializedCalculator'])) {
     $Calculator = unserialize($_SESSION['serializedCalculator']);
 }
 if($_POST['operation'] == 0){
-    $Calculator->adding($_POST['num']);
+    echo $Calculator->adding($_POST['num']);
 }
 if($_POST['operation'] == 1){
-    $Calculator->minusing($_POST['num']);
+    echo $Calculator->minusing($_POST['num']);
 }
 if($_POST['operation'] == 2){
-    $Calculator->multiplication($_POST['num']);
+    echo $Calculator->multiplication($_POST['num']);
 }
 if($_POST['operation'] == 3){
-    $Calculator->division($_POST['num']);
+    echo $Calculator->division($_POST['num']);
 }
 if($_POST['operation'] == 4){
     $Calculator->Number = 0;
+    echo $Calculator->Number;
 }
 
-echo $Calculator->Number;
-mysqli_query($link, "insert into Calculator(`Result`, `Time`) values('".$Calculator->Number."', NOW());");
+
+if(is_numeric($Calculator->Number)) {
+    mysqli_query($link, "insert into Calculator(`Result`, `Time`) values('" . $Calculator->Number . "', NOW());");
+}
 $_SESSION['serializedCalculator'] = serialize($Calculator);

@@ -2,10 +2,9 @@
 
 class Calculator
 {
-    public float $Number;
 
-    public function __construct(){
-        $this->Number = 0;
+    public function __construct(public int|float|string $Number = 0){
+
     }
     public  function adding($Number) {
         $this->Number = $this->Number + $Number;
@@ -23,7 +22,13 @@ class Calculator
     }
 
     public function division($Number){
-        $this->Number = $this->Number / $Number;
-        return $this->Number;
+        if($Number != 0) {
+            $this->Number = $this->Number / $Number;
+            return $this->Number;
+        }
+        else {
+            $this->Number = 0;
+            return "No division on zero";
+        }
     }
 }

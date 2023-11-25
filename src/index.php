@@ -1,25 +1,14 @@
-<html>
-<head>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>
-        function calculate(operation) {
-            $.ajax({
-                type: "POST",
-                url: "calculate.php",
-                data: {num: $('#num').val(), operation: operation},
-                success: function (result) {
-                    $('#num').val(result);
-                }
-            });
-        }
-    </script>
-</head>
-<body>
-    <input type = "text" id = "num">
-    <button onclick= "calculate(0)" name = "add">+</button>
-    <button onclick = "calculate(1)" name = "minus">-</button>
-    <button onclick = "calculate(2)" name = "multiplication">*</button>
-    <button onclick = "calculate(3)" name = "decimal">/</button>
-    <button onclick = "calculate(4)" name = "clear">C</button>
-</body>
-</html>
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+$log = new Logger('name');
+$log->pushHandler(new StreamHandler('../Logs/Logger.log', Level::Warning));
+
+$log->warning('Foo');
+$log->error('Bar');
+$someInfo = file_get_contents('../Logs/Logger.log');
+var_dump($someInfo);

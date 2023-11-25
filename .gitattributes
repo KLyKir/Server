@@ -1,4 +1,0 @@
-mysql/auto.cnf -text
-mysql/binlog.index -text
-mysql/ib_buffer_pool -text
-mysql/mysql.sock -text

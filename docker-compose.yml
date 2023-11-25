@@ -1,42 +1,22 @@
 version: '3.1'
 
 services:
-
-  db:
-    image: mysql
-    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
-    # (this is just an example, not intended to be a production configuration)
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-    volumes:
-      - ./mysql:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-    volumes:
-      - ./config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
-    depends_on:
-      - db
-
-  web:
-    image: nginx
-    volumes:
-      - ./src:/var/www/html
-      - './docker/nginx/conf.d:/etc/nginx/conf.d'
-    ports:
-      - "80:80"
-
   php:
     build:
       context: ./docker/php
     volumes:
-      - ./src:/var/www/html
-
+      - "./:/var/www/html"
+    ports:
+      - "9000:9000"
+  web:
+    image: nginx
+    volumes:
+      - './:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+    ports:
+      - "80:80"
+  composer:
+    image: composer
+    command: composer install
+    volumes:
+      - ".:/app"
